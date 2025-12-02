@@ -47,7 +47,8 @@ JSON
 }
 ```
 
-# Registro de Usuário
+
+## Registro de Usuário
 
 Cadastra um novo usuário no sistema.
 
