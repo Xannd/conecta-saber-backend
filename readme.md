@@ -71,7 +71,9 @@ Body (JSON):
 
 Nota: tipo_perfil pode ser 'ALUNO', 'VOLUNTARIO' ou 'GESTOR'. id_escola é opcional para voluntários.
 
-##  Escolas
+
+
+###  Escolas
 
 Listar Escolas
 Retorna a lista de escolas cadastradas (usado no cadastro do aluno).
