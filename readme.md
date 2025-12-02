@@ -13,7 +13,7 @@ A API utiliza **JWT (JSON Web Token)**.
 A maioria das rotas é protegida. Para acessá-las, você deve enviar o token no cabeçalho da requisição.
 
 **Header:**
-# ```http
+
 # Authorization: Bearer <SEU_TOKEN_AQUI>
 
 
