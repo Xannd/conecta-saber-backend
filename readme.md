@@ -13,44 +13,51 @@ A API utiliza **JWT (JSON Web Token)**.
 A maioria das rotas é protegida. Para acessá-las, você deve enviar o token no cabeçalho da requisição.
 
 **Header:**
-```http
-Authorization: Bearer <SEU_TOKEN_AQUI>
-1. Usuários e Autenticação
-Login
+# ```http
+# Authorization: Bearer <SEU_TOKEN_AQUI>
+
+
+## 1. Usuários e Autenticação
+# Login
+
 Autentica um usuário e retorna o Token de acesso.
 
-Rota: POST /login
+# Rota: POST /login
 
 Acesso: Público
 
 Body (JSON):
 
-JSON
+```json
 
 {
   "email": "usuario@email.com",
   "senha": "123456strongpassword"
 }
+```
+
 Resposta (200 OK):
 
 JSON
-
+```json
 {
   "mensagem": "Login realizado com sucesso!",
   "token": "eyJhbGciOiJIUzI1NiIsIn...",
   "usuario": { "id": 1, "nome": "Felipe", "tipo_perfil": "ALUNO" }
 }
-Registro de Usuário
+```
+
+# Registro de Usuário
+
 Cadastra um novo usuário no sistema.
 
-Rota: POST /usuarios/registro
+# Rota: POST /usuarios/registro
 
 Acesso: Público
 
 Body (JSON):
 
-JSON
-
+```json
 {
   "nome": "João da Silva",
   "email": "joao@email.com",
@@ -59,52 +66,58 @@ JSON
   "telefone": "11999999999",
   "id_escola": 1
 }
+```
+
 Nota: tipo_perfil pode ser 'ALUNO', 'VOLUNTARIO' ou 'GESTOR'. id_escola é opcional para voluntários.
 
-2. Escolas
+##  Escolas
+
 Listar Escolas
 Retorna a lista de escolas cadastradas (usado no cadastro do aluno).
 
-Rota: GET /escolas
+# Rota: GET /escolas
 
 Acesso: Público
 
-Cadastrar Escola
+# Cadastrar Escola
 Adiciona uma nova escola pública ao banco.
 
-Rota: POST /escolas
+# Rota: POST /escolas
 
 Acesso: Protegido (Requer Token)
 
 Body (JSON):
 
-JSON
-
+```json
 {
   "nome": "E.E. Conecta Saber",
   "endereco": "Rua das Flores, 123",
   "bairro": "Centro",
   "codigo_inep": "12345678"
 }
-3. Ofertas de Aula (Matchmaking)
+```
+
+## Ofertas de Aula (Matchmaking)
+
 Criar Oferta
 Voluntário disponibiliza horário para uma disciplina.
 
-Rota: POST /ofertas
+# Rota: POST /ofertas
 
 Acesso: Protegido (Apenas Voluntários)
 
 Body (JSON):
 
-JSON
-
+```json
 {
   "disciplina": "Matemática",
   "dias_disponiveis": "Segunda e Quarta",
   "horario_inicio": "14:00",
   "horario_fim": "16:00"
 }
-Buscar Ofertas
+```
+
+# Buscar Ofertas
 Aluno pesquisa por aulas disponíveis.
 
 Rota: GET /ofertas/busca
@@ -113,7 +126,8 @@ Acesso: Protegido
 
 Query Params: ?disciplina=Matematica
 
-4. Agendamentos
+## Agendamentos
+
 Solicitar Agendamento
 Aluno solicita uma aula com base em uma oferta existente.
 
@@ -123,12 +137,13 @@ Acesso: Protegido (Apenas Alunos)
 
 Body (JSON):
 
-JSON
-
+```json
 {
   "id_oferta": 5,
   "data_aula": "2025-12-20"
 }
+```
+
 Minha Agenda (Confirmada)
 Retorna a agenda consolidada do usuário (Aulas confirmadas).
 
@@ -136,14 +151,14 @@ Rota: GET /agendamentos/agenda
 
 Acesso: Protegido
 
-Listar Pendências (Voluntário)
+# Listar Pendências (Voluntário)
 Voluntário vê solicitações de alunos aguardando aprovação.
 
 Rota: GET /agendamentos/pendentes
 
 Acesso: Protegido (Apenas Voluntários)
 
-Responder Solicitação
+# Responder Solicitação
 Voluntário aceita ou recusa um agendamento.
 
 Rota: PATCH /agendamentos/:id_agendamento/responder
@@ -152,14 +167,15 @@ Acesso: Protegido (Apenas dono da oferta)
 
 Body (JSON):
 
-JSON
-
+```json
 {
   "novo_status": "CONFIRMADO"
 }
+```
+
 Opções: 'CONFIRMADO' ou 'CANCELADO'.
 
-Concluir Aula (Pós-Aula)
+# Concluir Aula (Pós-Aula)
 Voluntário registra presença e feedback.
 
 Rota: PATCH /agendamentos/:id_agendamento/conclusao
@@ -168,24 +184,27 @@ Acesso: Protegido
 
 Body (JSON):
 
-JSON
-
+```json
 {
   "presenca_confirmada": true,
   "feedback": "O aluno teve bom desempenho."
 }
-5. Painel de Gestão (Dashboard)
+```
+
+
+## Painel de Gestão (Dashboard)
+
 Dashboard Geral
 Retorna KPIs e estatísticas conforme o perfil.
 
-Rota: GET /gestao/dashboard
+# Rota: GET /gestao/dashboard
 
 Acesso: Protegido
 
 Listar Histórico Completo
 Gestor audita todos os agendamentos do sistema.
 
-Rota: GET /gestao/historico
+# Rota: GET /gestao/historico
 
 Acesso: Protegido (Apenas Gestores)
 
@@ -198,7 +217,8 @@ Aprovar: PATCH /gestao/voluntarios/:id/aprovar
 
 Acesso: Protegido (Apenas Gestores)
 
-📋 Status do Banco de Dados
+## 📋 Status do Banco de Dados
+
 Agendamentos
 SOLICITADO: Aguardando aceite.
 
